@@ -8,59 +8,51 @@
 
 
 struct ListNode* mergeTwoLists(struct ListNode* l1, struct ListNode* l2){
-    
-    
-    struct ListNode* head = NULL;
-    struct ListNode* first = l1;
-    struct ListNode* second = l2;
-    struct ListNode* current;
-    
-    
-    if(first && (!second || first->val <= second->val)){
-        
-        
-        head = first;
-        first = first->next;
-        
-    } 
-    else if(second && (!first || second->val < first->val)){
-        
-        head = second;
-        
-        second = second->next;
+    if(l1 == NULL)
+    {
+        return l2;
     }
+    else if(l2 == NULL)
+    {
+        return l1;
+    }
+    else if(l1 == NULL && l2 == NULL)
+    {
+        return NULL;
+    }
+    struct ListNode* p1 = l1;
+    struct ListNode* p2 = l2;
+    struct ListNode* dummy = (struct ListNode*)malloc(sizeof(struct ListNode));
+    struct ListNode* p3 = dummy;
     
-    current = head;
-    
-    while(first && second){
-        
-        
-        if(first->val <= second->val){
-            
-            current->next = first;
-            
-            first = first->next;
-            
+    while(p1!=NULL && p2!=NULL)
+    {
+        if(p1->val < p2->val)
+        {
+            p3->next = p1;
+            p1 = p1->next;
         }
-        else{
-            
-            current->next = second;
-            second = second->next;
+        else
+        {
+            p3->next = p2;
+            p2 = p2->next;
         }
-        
-        current = current->next;
+        p3=p3->next;
     }
-    
-    if(first){
+    while(p1!=NULL)
+    {
+        p3->next =p1;
+         p1 = p1->next;
+         p3=p3->next;
         
-        current->next = first; 
     }
-    
-    else if(second){
+        while(p2!=NULL)
+    {
+        p3->next =p2;
+         p2 = p2->next;
+         p3=p3->next;
         
-        current->next = second; 
     }
-    
-    return head;
+    return dummy->next;
     
 }
