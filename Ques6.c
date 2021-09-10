@@ -8,33 +8,39 @@
 
 
 struct ListNode* removeNthFromEnd(struct ListNode* head, int n){
-        struct ListNode *a, *b;
+        struct ListNode *a =(struct ListNode *)malloc(sizeof(struct ListNode ));
+         struct ListNode *b =(struct ListNode *)malloc(sizeof(struct ListNode ));
+     struct ListNode *c =(struct ListNode *)malloc(sizeof(struct ListNode ));
+            
     
         a = b = head;
+    int count =0;
+      while(a!=NULL)
+      {
+          a=a->next;
+          count++;
+      }
+    if(count==n)
+    {
+        return head->next;
+    }
+    count= count-n;
     
-        int count = 0;
     
-        while(count < n && b) {
-
-            b = b->next;
-            
-            count++;
-            
-        }
+    while(count!=1)
+    {
+        b=b->next;
+        count--;
+    }
     
-        if(!b)  
-        {
-            
-            return head->next;
-        }
     
-        while(b->next) {
-            
-            a = a->next; 
-            b = b->next; 
-        }
+    c= b->next->next;
+    a =b->next;
+    free(a);
+    b->next= c;
     
-        a->next = a->next->next; 
+    
+    
     
         return head;       
 }
