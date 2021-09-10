@@ -6,28 +6,35 @@
  * };
  */
 
-struct ListNode* Remove(struct ListNode* head, int val){
-    if(head == NULL) {
-        return NULL;
-    }
-    
-    int Value = head->val;
-    
-    if((head->next != NULL && head->next->val == head->val) || head->val == val) {
-        struct ListNode* temp = head;
-        head = head->next;
-        free(temp);
-        temp = NULL;
-        
-        return Remove(head, Value);
-    }
-    
-    head->next = Remove(head->next, Value);
-    return head;
-}
 
 struct ListNode* deleteDuplicates(struct ListNode* head){
-    int val = INT_MIN;
-    head = Remove(head, val);
-    return head;
+    if(head == NULL)
+    {
+        return NULL;
+    }
+    struct ListNode *dummy = (struct ListNode *)malloc(sizeof(struct ListNode));
+    struct ListNode *ptr = dummy;
+    
+        
+    while(head!=NULL)
+    {
+        if( head->next!=NULL && head->val == head->next->val  )
+        {
+            while(head->next!=NULL && head->next->val == head->val)
+            {
+            head=head->next;
+            }
+            
+            ptr->next = head->next;
+        }
+        else
+        {  
+            
+            ptr = head;
+            
+        }
+        head=head->next;
+    }
+    return dummy->next;
+    
 }
