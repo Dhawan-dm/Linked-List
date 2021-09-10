@@ -17,6 +17,7 @@ struct ListNode* rotateRight(struct ListNode* head, int k){
     int len = 1;
     
     struct ListNode *current = head;
+    struct ListNode *curr = head;
     
     while (current->next != NULL) {
         
@@ -25,17 +26,17 @@ struct ListNode* rotateRight(struct ListNode* head, int k){
         current = current->next;
     }
     
-    
     current->next = head;
+    
     int pos = len - k % len;
     
-    for (int i = 0; i < pos; i++) {
+    for (int i = 0; i < pos-1; i++) {
         
-        current = current->next;
+        curr = curr->next;
     } 
     
-    head = current->next;
+    head = curr->next;
     
-    current->next = NULL;
+    curr->next = NULL;
     return head;
 }
